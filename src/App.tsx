@@ -14,7 +14,7 @@ type StudentRecord = {
   finalResult: string
 }
 
-const DEMO_RECORD: StudentRecord = {
+const STUDENT_RECORD: StudentRecord = {
   examNumber: '200325415043',
   fullName: 'عثمان خالد حماد فرحان',
   university: 'جامعة دجلة',
@@ -91,14 +91,14 @@ function App() {
       return
     }
 
-    if (examNumber !== DEMO_RECORD.examNumber) {
+    if (examNumber !== STUDENT_RECORD.examNumber) {
       setRecord(null)
-      setError('لا توجد نتيجة تجريبية مطابقة لهذا الرقم.')
+      setError('لا توجد نتيجة مطابقة لهذا الرقم.')
       return
     }
 
     setError('')
-    setRecord(DEMO_RECORD)
+    setRecord(STUDENT_RECORD)
   }
 
   const resetSearch = () => {
@@ -116,7 +116,7 @@ function App() {
 
       <header className="relative overflow-hidden bg-[#102a43] text-white shadow-lg">
         <div className="absolute inset-y-0 left-0 w-1/2 bg-[radial-gradient(circle_at_left,rgba(56,189,248,0.2),transparent_62%)]" />
-        <div className="relative mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-6 sm:gap-4 sm:px-8 sm:py-7">
+        <div className="relative mx-auto flex max-w-5xl items-center gap-3 px-4 py-6 sm:gap-4 sm:px-8 sm:py-7">
           <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <AcademicMark />
             <div>
@@ -124,20 +124,17 @@ function App() {
               <p className="mt-0.5 text-sm font-medium text-sky-100 sm:text-base">نظام عرض النتائج</p>
             </div>
           </div>
-          <span className="max-w-[112px] shrink-0 rounded-full bg-amber-300/10 px-2.5 py-1.5 text-center text-[10px] font-bold leading-4 text-amber-200 ring-1 ring-inset ring-amber-200/25 sm:max-w-none sm:px-3 sm:text-xs">
-            نموذج تجريبي غير رسمي
-          </span>
         </div>
       </header>
 
       <main className="relative mx-auto w-full max-w-4xl px-4 py-10 sm:px-8 sm:py-14">
         <section className="mx-auto max-w-2xl text-center" aria-labelledby="page-heading">
-          <p className="mb-2 text-sm font-bold text-blue-700">بوابة الطلبة التجريبية</p>
+          <p className="mb-2 text-sm font-bold text-blue-700">بوابة الطلبة</p>
           <h2 id="page-heading" className="text-2xl font-extrabold tracking-tight text-[#102a43] sm:text-3xl">
             الاستعلام عن نتيجة الطالب
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">
-            أدخل الرقم الامتحاني المكوّن من 12 رقماً للاطلاع على السجل التجريبي.
+            أدخل الرقم الامتحاني المكوّن من 12 رقماً للاطلاع على السجل الأكاديمي.
           </p>
         </section>
 
@@ -160,7 +157,7 @@ function App() {
                   spellCheck={false}
                   value={examNumber}
                   onChange={(event) => handleInput(event.target.value)}
-                  aria-describedby={error ? 'search-message' : 'exam-hint'}
+                  aria-describedby={error ? 'search-message' : undefined}
                   aria-invalid={Boolean(error)}
                   placeholder="مثال: 200325415043"
                   className={`h-14 w-full rounded-xl border bg-slate-50 px-4 text-left font-semibold tracking-[0.15em] text-slate-900 outline-none transition-all placeholder:text-right placeholder:font-normal placeholder:tracking-normal placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
@@ -183,18 +180,14 @@ function App() {
               </button>
             </div>
 
-            <div className="mt-3 min-h-7">
-              {error ? (
+            {error && (
+              <div className="mt-3">
                 <p id="search-message" role="alert" className="flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold leading-6 text-red-700">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                   {error}
                 </p>
-              ) : (
-                <p id="exam-hint" className="text-xs leading-6 text-slate-500">
-                  تتم المطابقة محلياً داخل متصفحك، ولا يُحفظ رقم البحث أو يُرسل إلى أي جهة.
-                </p>
-              )}
-            </div>
+              </div>
+            )}
           </form>
         </section>
 
@@ -203,7 +196,7 @@ function App() {
             <div className="border-b border-slate-100 bg-gradient-to-l from-[#102a43] to-[#163f63] px-5 py-6 text-white sm:px-8">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-xs font-bold text-sky-200">السجل الأكاديمي التجريبي</p>
+                  <p className="text-xs font-bold text-sky-200">السجل الأكاديمي</p>
                   <h3 id="result-heading" className="mt-1.5 text-xl font-extrabold sm:text-2xl">{record.fullName}</h3>
                 </div>
                 <span className="w-fit rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white ring-1 ring-inset ring-white/20">
@@ -253,7 +246,7 @@ function App() {
 
               <div className="mt-5 flex flex-col gap-4 rounded-2xl border border-red-100 bg-red-50/70 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                 <div>
-                  <p className="text-xs font-semibold text-red-600">النتيجة النهائية التجريبية</p>
+                  <p className="text-xs font-semibold text-red-600">النتيجة النهائية</p>
                   <p className="mt-0.5 text-2xl font-extrabold text-red-700">{record.finalResult}</p>
                 </div>
                 <button
@@ -268,17 +261,10 @@ function App() {
           </section>
         )}
 
-        <div className="mx-auto mt-8 flex max-w-2xl items-start gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/80 px-4 py-3.5 text-xs leading-6 text-amber-900">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" stroke="currentColor" strokeWidth="1.8">
-            <path d="M12 22c5-2.4 8-6.3 8-11.2V5l-8-3-8 3v5.8C4 15.7 7 19.6 12 22Z" strokeLinejoin="round" />
-            <path d="M12 8v5m0 3h.01" strokeLinecap="round" />
-          </svg>
-          <p><strong>تنبيه:</strong> هذه الواجهة محاكاة تعليمية غير رسمية، والبيانات المعروضة تجريبية ولا تمثل وثيقة أو نتيجة جامعية معتمدة.</p>
-        </div>
       </main>
 
       <footer className="relative border-t border-slate-200/80 bg-white/60 px-4 py-5 text-center text-xs leading-6 text-slate-500">
-        نموذج تجريبي للعرض فقط — لا يتم جمع أو تخزين أي بيانات.
+        جامعة دجلة — نظام عرض النتائج
       </footer>
     </div>
   )
